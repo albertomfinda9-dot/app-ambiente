@@ -3,6 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#1f5c4d">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Ambiente AO">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" href="icon-192.png">
 <title>Ambiente Angola – Protótipo</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:wght@400;600;700&family=Instrument+Sans:wght@400;600&display=swap">
 <style>
@@ -68,6 +76,7 @@ section[hidden]{display:none}
 <p>Inclui, em resumo, os 37 artigos da Lei de Bases do Ambiente (Lei 5/98), 19 artigos do Decreto Presidencial 117/20 e um classificador de atividades por categoria (A a E).</p>
 <p>Inclui também as 25 definições do glossário da Lei 5/98. Ainda não cobre outros regulamentos (resíduos, áreas de conservação, entre outros). O texto de referência é sempre o do Diário da República, e o conteúdo deve ser revisto por um jurista antes do lançamento.</p>
 <p>Os resumos são redação própria e não substituem o texto oficial.</p>
+<p><b>Instalar no telemóvel.</b> Android: no Chrome, toque em ⋮ e em Instalar app (ou Adicionar ao ecrã principal). iPhone: no Safari, toque em Partilhar e em Adicionar ao ecrã principal. Depois de aberta uma vez com internet, a app funciona também sem ligação.</p>
 </section>
 </main>
 
@@ -233,6 +242,9 @@ document.querySelectorAll("nav button").forEach(function(b){
     window.scrollTo(0,0);
   });
 });
+</script>
+<script>
+if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})}
 </script>
 </body>
 </html>
