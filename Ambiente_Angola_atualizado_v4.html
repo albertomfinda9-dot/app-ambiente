@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#1f5c4d">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Ambiente AO">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" href="icon-192.png">
+<title>Ambiente Angola – Plataforma Técnica</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:wght@400;600;700&family=Instrument+Sans:wght@400;600&display=swap">
+<style>
+:root{--bg:#f1f4ee;--card:#fbfcf9;--ink:#15302b;--mut:#5a6d66;--line:#d3dccf;--acc:#1f5c4d;--A:#8c3a2b;--B:#a8741a;--C:#2d6a8a;--D:#3d7a4c;--E:#1b1b1b;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#101a17;--card:#17251f;--ink:#e6efe8;--mut:#9db0a6;--line:#2a3d35;--acc:#6fc2a8;--A:#e0836f;--B:#e0b050;--C:#7bbbdc;--D:#7fcf90;--E:#f0f0f0;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#101a17;--card:#17251f;--ink:#e6efe8;--mut:#9db0a6;--line:#2a3d35;--acc:#6fc2a8;--A:#e0836f;--B:#e0b050;--C:#7bbbdc;--D:#7fcf90;--E:#f0f0f0;color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Instrument Sans",system-ui,sans-serif;padding-bottom:calc(72px + env(safe-area-inset-bottom,0px))}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:10}
+main{max-width:640px;margin:0 auto;padding:20px 16px}
+h1,h2,h3{font-family:Literata,Georgia,serif;line-height:1.25;margin:0}
+h1{font-size:1.7rem;font-weight:700}
+.sub{color:var(--mut);margin:6px 0 18px}
+input[type=search],select{width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);font:inherit}
+input:focus,select:focus,button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.art{background:var(--card);border-left:4px solid var(--acc);border-radius:4px 10px 10px 4px;padding:12px 14px;margin:12px 0}
+.art b{font-family:Literata,serif}
+.art p{margin:6px 0 0;color:var(--mut);font-size:.95rem}
+.cnt{color:var(--mut);font-size:.9rem;margin:10px 0}
+.q{display:flex;gap:10px;align-items:flex-start;background:var(--card);border:1.5px solid var(--line);border-radius:10px;padding:12px;margin:14px 0}
+.q input{margin-top:4px;width:20px;height:20px;accent-color:var(--acc)}
+label.l{display:block;font-weight:600;margin:16px 0 6px}
+.res{margin-top:18px;border-radius:12px;background:var(--card);border:2px solid var(--c,var(--line));padding:16px}
+.res .big{display:inline-grid;place-items:center;width:52px;height:52px;border-radius:50%;background:var(--c);color:#fff;font:700 1.7rem Literata,serif;float:left;margin:0 14px 6px 0}
+:root:not([data-theme="light"]) .res .big{color:#101a17}
+.res h2{font-size:1.15rem;padding-top:4px}
+.res ul{clear:both;padding-left:20px;margin:10px 0 0}
+.res li{margin:5px 0}
+.warn{font-size:.85rem;color:var(--mut);margin-top:16px;border-top:1px solid var(--line);padding-top:10px}
+nav{position:fixed;left:0;right:0;bottom:0;display:flex;background:var(--card);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px);z-index:5}
+nav button{flex:1;padding:14px 4px;border:0;background:none;color:var(--mut);font:600 .95rem "Instrument Sans",sans-serif;cursor:pointer}
+nav button[aria-selected=true]{color:var(--acc);box-shadow:inset 0 3px var(--acc)}
+section[hidden]{display:none}
+.about p{margin:0 0 12px}
+
+/* Módulos técnicos Ambiente Angola */
+.module-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:14px 0}
+.module-card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px}
+.module-card b{display:block;font-family:Literata,Georgia,serif;margin-bottom:5px}
+.module-card small{color:var(--mut)}
+.module h2{font-size:1.2rem;margin:20px 0 8px}
+.module h3{font-size:1rem;margin:15px 0 5px}
+.module p,.module li{font-size:.95rem}
+.module ul{padding-left:20px}
+.tag{display:inline-block;border:1px solid var(--line);border-radius:99px;padding:2px 8px;font-size:.78rem;color:var(--mut);margin:2px}
+.module-note{background:var(--card);border-left:4px solid var(--acc);padding:12px;border-radius:5px;margin:12px 0}
+.checklist{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px;margin:10px 0}
+.checklist label{display:flex;gap:9px;align-items:flex-start;margin:8px 0}
+.checklist input{margin-top:4px;accent-color:var(--acc)}
+.module select,.module input[type=search]{margin:5px 0 12px}
+@media(min-width:520px){.module-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+button{cursor:pointer}#s-tools input[type=text],#s-tools select{width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);font:inherit}.module-grid button{border:1px solid var(--line);border-radius:10px;background:var(--acc);color:white;padding:12px;font:600 .9rem "Instrument Sans",sans-serif}.module-grid button:nth-child(2){background:var(--card);color:var(--ink)}@media print{nav{display:none!important}body{padding:0}section[hidden]{display:none!important}}
+</style>
+</head>
+<body>
+<main>
+<section id="s-search">
+<h1>Ambiente Angola</h1>
+<p class="sub">Legislação, avaliação de impacte, gestão, monitorização e auditoria ambiental em Angola.</p>
+<input type="search" id="q" placeholder="Ex.: EPDA, consulta pública, multa" aria-label="Pesquisar artigos">
+<label class="l" for="src">Diploma</label>
+<select id="src"><option value="all">Todos</option><option value="Lei 5/98">Lei de Bases do Ambiente (Lei 5/98)</option><option value="Decreto 117/20">Decreto Presidencial 117/20 (AIA e licenciamento)</option><option value="Glossário">Glossário da Lei 5/98</option></select>
+<div class="cnt" id="cnt"></div>
+<div id="list"></div>
+</section>
+
+<section id="s-class" hidden>
+<h1>Qual é a categoria?</h1>
+<p class="sub">Indique a atividade e o local. Resultado indicativo, com base nos anexos do Decreto 117/20.</p>
+<label class="q"><input type="checkbox" id="fatal"><span>A pré-avaliação identificou uma questão fatal enquadrável no Anexo V do Decreto Presidencial n.º 117/20?</span></label>
+<label class="l" for="act">Atividade</label>
+<select id="act"></select>
+<div id="res" aria-live="polite"></div>
+<p class="warn">Ferramenta de apoio, sem valor legal. A pré-avaliação é da entidade competente. O artigo 7.º prevê as Categorias A, B, C, D e E; a Categoria E corresponde às actividades do Anexo V qualificadas como questões fatais. Esta ferramenta não substitui a decisão administrativa.</p>
+</section>
+
+
+<section id="s-studies" class="module" hidden>
+<h1>Estudos e instrumentos ambientais</h1>
+<p class="sub">Percurso técnico desde a pré-avaliação até à gestão e monitorização ambiental.</p>
+<div class="module-grid">
+ <div class="module-card"><b>EPDA</b><small>Pré-viabilidade e definição do âmbito · Categoria A</small></div>
+ <div class="module-card"><b>TdR</b><small>Âmbito, métodos, alternativas e equipa</small></div>
+ <div class="module-card"><b>EIA</b><small>Identificação, previsão e avaliação de impactes</small></div>
+ <div class="module-card"><b>RNT</b><small>Comunicação acessível dos resultados</small></div>
+ <div class="module-card"><b>PGA</b><small>Medidas, responsabilidades e monitorização</small></div>
+ <div class="module-card"><b>Licenciamento</b><small>Instalação, operação e desactivação</small></div>
+</div>
+<label class="l" for="studySelect">Seleccionar módulo</label>
+<select id="studySelect">
+<option value="epda">EPDA – Estudo de Pré-Viabilidade Ambiental e Definição do Âmbito</option>
+<option value="tdr">TdR – Termos de Referência</option>
+<option value="eia">EIA – Estudo de Impacte Ambiental</option>
+<option value="rnt">RNT – Resumo Não Técnico</option>
+<option value="pga">PGA – Plano de Gestão Ambiental</option>
+<option value="lic">Licenciamento, monitorização e desactivação</option>
+<option value="intl">Referenciais internacionais</option>
+</select>
+<div id="studyContent"></div>
+</section>
+
+<section id="s-audit" class="module" hidden>
+<h1>Auditoria ambiental</h1>
+<p class="sub">Ferramenta de preparação para auditorias internas, externas, de conformidade e de desempenho.</p>
+<div class="module-note"><b>Base legal:</b> Decreto Presidencial n.º 117/20, artigo 20.º, e definição de auditoria ambiental do artigo 3.º, alínea i). O artigo 20.º, n.º 5, prevê a realização por entidades especializadas licenciadas pelo Departamento Ministerial responsável pelo Ambiente.</div>
+<label class="l" for="auditType">Tipo de auditoria</label>
+<select id="auditType"><option value="internal">Interna (1.ª parte)</option><option value="external">Externa (2.ª ou 3.ª parte)</option><option value="compliance">Conformidade legal</option><option value="performance">Desempenho do sistema ambiental</option></select>
+<label class="l" for="auditArea">Âmbito</label>
+<select id="auditArea"><option value="all">Todos os âmbitos</option><option value="legal">Requisitos legais e licenças</option><option value="waste">Resíduos e produtos químicos</option><option value="water">Água e efluentes</option><option value="air">Emissões atmosféricas e poeiras</option><option value="soil">Solo, derrames e áreas contaminadas</option><option value="biodiversity">Biodiversidade e uso do solo</option><option value="social">Aspectos sociais e reclamações</option><option value="emergency">Emergências e preparação</option><option value="monitoring">Monitorização e relatórios</option><option value="contractors">Empreiteiros e subcontratados</option></select>
+<div id="auditChecklist" class="checklist"></div>
+<div class="module-note"><b>Como avaliar:</b> combinar análise documental, entrevistas, observação no terreno, amostragem quando necessária e verificação de registos. Cada constatação deve indicar critério, evidência objectiva, desvio, risco/consequência, classificação, responsável e prazo de acção correctiva.</div>
+<h2>Etapas recomendadas</h2>
+<ol><li>Definir objectivos, critérios, âmbito e equipa competente.</li><li>Preparar plano, lista de verificação e amostra documental.</li><li>Reunião de abertura e confirmação das condições de acesso.</li><li>Recolher evidências rastreáveis: documentos, entrevistas e observação.</li><li>Classificar constatações: conformidade, não conformidade, observação e oportunidade de melhoria.</li><li>Reunião de encerramento e validação factual.</li><li>Emitir relatório, plano de acções correctivas e acompanhar eficácia.</li></ol>
+<h2>Estrutura mínima do relatório</h2>
+<ul><li>Identificação da organização, instalação, datas e equipa auditora;</li><li>Objectivos, âmbito, critérios e metodologia;</li><li>Documentos e áreas amostradas, limitações e participantes;</li><li>Resumo executivo e nível de conformidade;</li><li>Constatações com evidências e referência ao requisito;</li><li>Plano de acções, responsáveis, prazos e verificação de eficácia;</li><li>Conclusão, anexos, registo fotográfico e assinaturas.</li></ul>
+</section>
+
+<section id="s-tools" class="module" hidden>
+<h1>Ferramentas de campo</h1>
+<p class="sub">Registo preliminar de projecto, identificação de aspectos e impactes e preparação de relatório técnico.</p>
+<div class="module-note"><b>Nota de utilização:</b> esta ferramenta organiza informação preliminar. Não determina automaticamente a categoria legal, não substitui estudos por equipa habilitada nem decisões da autoridade ambiental.</div>
+
+<h2>Casos práticos para aprendizagem</h2>
+<p>Os exemplos abaixo são exercícios didácticos. Os dados de localização, dimensão, receptores sensíveis e resultados devem ser confirmados por levantamento de campo, projecto de engenharia, estudos especializados e informação oficial. Não representam resultados de estudos reais.</p>
+<div class="module-grid">
+ <button type="button" id="loadSolar">Carregar exemplo: Central Fotovoltaica de Catete</button>
+ <button type="button" id="loadHydro">Carregar exemplo: Barragem de Laúca</button>
+</div>
+<div class="module-note"><b>Como usar:</b> carregue um exemplo para preencher a ficha preliminar abaixo. Depois adapte os dados ao projecto real, confirme os receptores ambientais e complete a avaliação com evidências.</div>
+<div class="module-card">
+ <h3>Caso 1 — Central Fotovoltaica de Catete</h3>
+ <p><b>Cenário de exercício:</b> construção de uma central solar, incluindo preparação do terreno, montagem de estruturas e painéis, acessos internos, estaleiro, cabos e equipamentos eléctricos.</p>
+ <p><b>Aspectos a investigar:</b> remoção de vegetação; movimentação e compactação de solos; drenagem e erosão; poeiras e ruído; resíduos de construção e embalagens; armazenamento de combustíveis; circulação de viaturas; segurança dos trabalhadores e comunidades.</p>
+ <p><b>Exemplo de impacte:</b> a remoção de cobertura vegetal e a exposição do solo podem aumentar o escoamento superficial e a erosão durante chuvas intensas, com transporte de sedimentos para linhas de drenagem.</p>
+ <p><b>Medidas possíveis:</b> delimitar a área estritamente necessária; preservar zonas sensíveis; executar drenagem antes da movimentação de terras; estabilizar taludes; controlar velocidade e poeiras; separar resíduos; manter combustíveis em área impermeabilizada com contenção; recuperar áreas temporárias.</p>
+ <p><b>Monitorização ilustrativa:</b> inspecção visual de erosão e drenagem semanal e após chuva intensa; registo de poeiras durante actividades críticas; inspecção semanal do armazenamento de resíduos e produtos perigosos; registo de incidentes e reclamações.</p>
+</div>
+<div class="module-card">
+ <h3>Caso 2 — Barragem de Laúca</h3>
+ <p><b>Cenário de exercício:</b> acompanhamento ambiental e social de actividades de construção/operação associadas a uma grande infraestrutura hidroeléctrica. O âmbito real deve distinguir obras activas, instalações auxiliares, áreas de empréstimo, acessos, albufeira e comunidades potencialmente influenciadas.</p>
+ <p><b>Aspectos a investigar:</b> gestão de águas e efluentes; erosão e sedimentação; resíduos e óleos usados; ruído e poeiras; biodiversidade aquática e terrestre; segurança rodoviária e comunitária; saúde e segurança; meios de subsistência, reassentamento ou restrições de acesso quando aplicável.</p>
+ <p><b>Exemplo de impacte:</b> descargas inadequadamente controladas ou escorrências de áreas de manutenção podem afectar a qualidade da água. A avaliação deve identificar pontos de descarga, receptores a jusante, parâmetros relevantes e condições de referência.</p>
+ <p><b>Medidas possíveis:</b> manter sistemas de drenagem e tratamento; prevenir derrames; inspeccionar bacias de retenção; gerir resíduos por tipologia e destino autorizado; controlar sedimentos; proteger habitats; manter canal de reclamações e registo de resposta; comunicar riscos de segurança às comunidades.</p>
+ <p><b>Monitorização ilustrativa:</b> inspecção de pontos de descarga; amostragem de água a montante/jusante quando tecnicamente justificada; verificação de erosão; reconciliação de resíduos gerados e encaminhados; análise de reclamações, incidentes e acções correctivas.</p>
+</div>
+<h3>Exemplo de matriz de avaliação (valores hipotéticos)</h3>
+<p>Escala didáctica: probabilidade (1–5) × consequência/magnitude (1–5). O resultado é apenas uma triagem interna de prioridade. Não é uma fórmula legal universal nem substitui a metodologia aprovada para o estudo.</p>
+<table style="width:100%;border-collapse:collapse;font-size:.88rem">
+<thead><tr><th style="text-align:left;border-bottom:1px solid var(--line);padding:6px">Projecto / impacte</th><th style="border-bottom:1px solid var(--line);padding:6px">P</th><th style="border-bottom:1px solid var(--line);padding:6px">M</th><th style="border-bottom:1px solid var(--line);padding:6px">P×M</th><th style="text-align:left;border-bottom:1px solid var(--line);padding:6px">Prioridade preliminar</th></tr></thead>
+<tbody>
+<tr><td style="padding:6px;border-bottom:1px solid var(--line)">Catete — erosão do solo</td><td align="center">4</td><td align="center">3</td><td align="center">12</td><td style="padding:6px">Elevada; confirmar em campo</td></tr>
+<tr><td style="padding:6px;border-bottom:1px solid var(--line)">Catete — poeiras na obra</td><td align="center">4</td><td align="center">2</td><td align="center">8</td><td style="padding:6px">Moderada</td></tr>
+<tr><td style="padding:6px;border-bottom:1px solid var(--line)">Laúca — escorrência contaminada</td><td align="center">3</td><td align="center">5</td><td align="center">15</td><td style="padding:6px">Elevada; receptor hídrico sensível a confirmar</td></tr>
+<tr><td style="padding:6px;border-bottom:1px solid var(--line)">Laúca — resíduos mal segregados</td><td align="center">3</td><td align="center">3</td><td align="center">9</td><td style="padding:6px">Moderada</td></tr>
+</tbody></table>
+<h3>Exemplo de plano de monitorização</h3>
+<table style="width:100%;border-collapse:collapse;font-size:.88rem">
+<thead><tr><th style="text-align:left;border-bottom:1px solid var(--line);padding:6px">Indicador / verificação</th><th style="text-align:left;border-bottom:1px solid var(--line);padding:6px">Frequência ilustrativa</th><th style="text-align:left;border-bottom:1px solid var(--line);padding:6px">Evidência</th></tr></thead>
+<tbody>
+<tr><td style="padding:6px;border-bottom:1px solid var(--line)">Erosão, valas e drenagem — Catete</td><td style="padding:6px">Semanal e após chuva intensa</td><td style="padding:6px">Checklist, fotografias georreferenciadas e acções</td></tr>
+<tr><td style="padding:6px;border-bottom:1px solid var(--line)">Poeiras — Catete</td><td style="padding:6px">Durante actividades geradoras e reclamações</td><td style="padding:6px">Inspecção, registo de rega e ocorrências</td></tr>
+<tr><td style="padding:6px;border-bottom:1px solid var(--line)">Qualidade da água — Laúca</td><td style="padding:6px">Conforme plano técnico/licença e risco</td><td style="padding:6px">Resultados laboratoriais, cadeia de custódia e localização</td></tr>
+<tr><td style="padding:6px;border-bottom:1px solid var(--line)">Resíduos — ambos</td><td style="padding:6px">Semanal; consolidação mensal</td><td style="padding:6px">Guias, pesagens, inventário e comprovativos de destino</td></tr>
+</tbody></table>
+<h3>Exemplos de constatações de auditoria</h3>
+<ul>
+ <li><b>Não conformidade potencial:</b> recipientes de óleo usado sem identificação e sem contenção secundária. <b>Evidência:</b> observação no local e fotografias. <b>Acção:</b> identificar, colocar em contenção, inspeccionar área e formar responsáveis. <b>Fecho:</b> verificar implementação e registos.</li>
+ <li><b>Observação:</b> registos de inspecção de drenagem não demonstram verificação após episódios de chuva. <b>Acção:</b> rever checklist e calendário, atribuir responsável e verificar amostras de registos posteriores.</li>
+ <li><b>Oportunidade de melhoria:</b> painel mensal de indicadores ambientais e sociais ainda não consolida reclamações, incidentes, resíduos e monitorização. <b>Acção:</b> criar painel, definir fontes e validar dados mensalmente.</li>
+</ul>
+<p class="warn">As classificações, frequências e valores acima são meramente ilustrativos. Critérios de aceitação, limites legais, pontos de amostragem, frequência e responsabilidades devem resultar da licença, do PGA aprovado, dos requisitos legais aplicáveis e da avaliação técnica do local.</p>
+<h2>1. Ficha de enquadramento do projecto</h2>
+<label class="l" for="pName">Designação do projecto</label><input id="pName" type="text" placeholder="Ex.: Central Fotovoltaica de Catete">
+<label class="l" for="pActivity">Actividade principal</label><input id="pActivity" type="text" placeholder="Ex.: construção e operação de central fotovoltaica">
+<label class="l" for="pLocation">Localização</label><input id="pLocation" type="text" placeholder="Comuna, município, província">
+<label class="l" for="pPhase">Fase do projecto</label><select id="pPhase"><option>Concepção / planeamento</option><option>Construção</option><option>Operação</option><option>Desactivação / encerramento</option></select>
+<label class="l" for="pCategory">Categoria indicada (não confirmada)</label><select id="pCategory"><option>Por determinar pela pré-avaliação</option><option>A — indicada pelo proponente, sujeita a confirmação</option><option>B — indicada pelo proponente, sujeita a confirmação</option><option>C — indicada pelo proponente, sujeita a confirmação</option><option>D — indicada pelo proponente, sujeita a confirmação</option><option>E — questão fatal a verificar nos termos legais</option></select>
+<label class="l" for="pDescription">Descrição resumida e componentes</label><textarea id="pDescription" rows="4" style="width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);font:inherit" placeholder="Área ocupada, potência/capacidade, acessos, estaleiro, linhas eléctricas, água, mão-de-obra..."></textarea>
+<h2>2. Triagem de aspectos e impactes potenciais</h2>
+<p>Assinale os aspectos que podem estar associados ao projecto. A selecção é uma triagem, não uma conclusão de significância.</p>
+<div id="impactOptions" class="checklist"></div>
+<label class="l" for="pEvidence">Informação em falta / estudos ou verificações necessários</label><textarea id="pEvidence" rows="4" style="width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);font:inherit" placeholder="Ex.: levantamento de biodiversidade, caracterização de solos, consulta às comunidades, mapa de drenagem..."></textarea>
+<label class="l" for="pMeasures">Medidas preliminares de prevenção e mitigação</label><textarea id="pMeasures" rows="4" style="width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);font:inherit" placeholder="Descrever medidas propostas, responsáveis e evidências a produzir..."></textarea>
+<div class="module-grid"><button type="button" id="saveProject">Guardar rascunho neste dispositivo</button><button type="button" id="clearProject">Limpar ficha</button><button type="button" id="printProject">Imprimir / guardar PDF</button></div>
+<div id="projectStatus" class="module-note" aria-live="polite">Preencha os campos para preparar a ficha.</div>
+<h2>3. Orientação para a avaliação</h2>
+<ul><li>Descrever a actividade, localização, alternativas e fases do ciclo de vida.</li><li>Identificar receptores ambientais e sociais potencialmente afectados.</li><li>Separar aspectos directos, indirectos, cumulativos e induzidos.</li><li>Avaliar magnitude, extensão, duração, reversibilidade, probabilidade e sensibilidade do receptor.</li><li>Definir medidas segundo a hierarquia: evitar, minimizar, restaurar e, quando aplicável, compensar.</li><li>Estabelecer indicadores, método, frequência, local, responsável e resposta a desvios.</li></ul>
+</section>
+
+<section id="s-about" class="about" hidden>
+<h1>Sobre o protótipo</h1>
+<p class="sub">Versão de trabalho actualizada – conteúdo técnico em desenvolvimento.</p>
+<p>Inclui pesquisa legislativa, classificador indicativo A–E, módulos EPDA, TdR, EIA, RNT, PGA, licenciamento, referenciais internacionais e listas de verificação de auditoria.</p>
+<p>Inclui também as 25 definições do glossário da Lei 5/98. A legislação sectorial (resíduos, água, biodiversidade, áreas de conservação, energia, minas e ordenamento do território) deverá ser adicionada e validada em módulos próprios. O texto de referência é sempre o do Diário da República, e o conteúdo deve ser revisto por um jurista antes do lançamento.</p>
+<p>Os resumos são redação própria e não substituem o texto oficial.</p>
+<p><b>Instalar no telemóvel.</b> Android: no Chrome, toque em ⋮ e em Instalar app (ou Adicionar ao ecrã principal). iPhone: no Safari, toque em Partilhar e em Adicionar ao ecrã principal. Depois de aberta uma vez com internet, a app funciona também sem ligação.</p>
+</section>
+</main>
+
+<nav role="tablist">
+<button role="tab" aria-selected="true" data-t="search">Pesquisar</button>
+<button role="tab" aria-selected="false" data-t="class">Classificar</button>
+<button role="tab" aria-selected="false" data-t="studies">Estudos</button>
+<button role="tab" aria-selected="false" data-t="audit">Auditoria</button>
+<button role="tab" aria-selected="false" data-t="tools">Campo</button>
+<button role="tab" aria-selected="false" data-t="about">Sobre</button>
+</nav>
+
+<script>
+var LEI=[
+["1.º","Âmbito","Fixa os conceitos e princípios básicos de proteção, preservação e conservação do ambiente, de qualidade de vida e de uso racional dos recursos naturais."],
+["2.º","Definições","Remete para o glossário anexo, que faz parte da lei."],
+["3.º","Princípios gerais","Todos têm direito a um ambiente sadio e o dever de o defender. Cabe ao Estado criar o Programa Nacional de Gestão Ambiental e a legislação necessária."],
+["4.º","Princípios específicos","Educação ambiental, participação, prevenção, equilíbrio, unidade de gestão, cooperação internacional, responsabilização, valorização dos recursos naturais e defesa dos recursos genéticos."],
+["5.º","Objetivos e medidas","Desenvolvimento sustentável, ordenamento do território, rede de áreas protegidas, normas de qualidade, participação dos cidadãos e recuperação de áreas degradadas."],
+["6.º","Responsabilidades do Estado","O Governo define e executa o Programa de Gestão Ambiental e atribui responsabilidades a órgãos públicos, agentes privados e cidadãos."],
+["7.º","Órgãos centrais e locais","O Governo cria um órgão central coordenador do programa, com representação regional, provincial, municipal e local, e pode criar organismos especializados."],
+["8.º","Participação dos cidadãos","Os cidadãos têm o direito e a obrigação de participar na gestão ambiental, em associações, em consultas públicas ou denunciando ações lesivas."],
+["9.º","Organizações não governamentais","As ONG legalizadas de defesa do ambiente podem participar e ser representadas nos fóruns de gestão ambiental."],
+["10.º","Consultas públicas","Projetos que afetem comunidades, o equilíbrio ecológico ou recursos naturais exigem avaliação de impacto ambiental e social, com consulta pública obrigatória."],
+["11.º","Legislação de gestão ambiental","O Governo publica os regulamentos do programa. Os órgãos judiciais acompanham as propostas e incorporam os conceitos de ambiente e desenvolvimento sustentável."],
+["12.º","Património ambiental","O Governo protege e valoriza o património natural, histórico e cultural, com envolvimento das comunidades e das associações ambientais."],
+["13.º","Proteção da biodiversidade","São proibidas as atividades que prejudiquem a biodiversidade e os recursos biológicos, sobretudo espécies ameaçadas. O Governo protege espécies e recupera habitats."],
+["14.º","Áreas de proteção ambiental","O Governo cria uma rede de áreas protegidas (nacionais, regionais, locais ou internacionais). As nacionais são proclamadas pela Assembleia Nacional."],
+["15.º","Implantação de infraestruturas","Infraestruturas com impacte negativo significativo dependem de avaliação de impacto ambiental e social, que mede a viabilidade e as formas de reduzir os efeitos."],
+["16.º","Avaliação de impacto ambiental","Instrumento principal de gestão ambiental e obrigatório. Os estudos incluem resumo não técnico, descrição da atividade e do local, consulta pública, impactes, mitigação e monitorização."],
+["17.º","Licenciamento ambiental","Aplica-se a atividades com impacte significativo. A licença ambiental baseia-se no resultado da avaliação e precede as outras licenças exigidas."],
+["18.º","Auditorias ambientais","Atividades já em funcionamento sem medidas de proteção são auditadas. Os custos de reparação dos danos são dos empreendedores."],
+["19.º","Poluição do ambiente","O Governo regula poluentes e fixa padrões de qualidade ambiental, incluindo ruído e queima de combustíveis. É proibida a importação de resíduos perigosos, salvo lei específica."],
+["20.º","Educação ambiental","Deve ser permanente e organizada em campanhas, no ensino formal e na comunicação social, e chegar a todas as camadas da população."],
+["21.º","Direito à informação","Todos os cidadãos podem aceder à informação sobre a gestão do ambiente, sem prejuízo dos direitos legalmente protegidos de terceiros."],
+["22.º","Direito à educação","Todos têm acesso à educação ambiental para participarem eficazmente na gestão do ambiente."],
+["23.º","Acesso à justiça","Quem veja violados os seus direitos pode recorrer aos tribunais para fazer cessar a violação e pedir indemnização. O Ministério Público defende os valores ambientais."],
+["24.º","Embargos","Quem se sinta ofendido no direito a um ambiente equilibrado pode pedir a suspensão imediata da atividade causadora."],
+["25.º","Utilização responsável dos recursos","Cidadãos e setores público e privado devem usar os recursos naturais de forma responsável e sustentável."],
+["26.º","Participação de infrações","Quem verificar, ou previr, uma infração ambiental deve informar as autoridades."],
+["27.º","Seguro de responsabilidade civil","Quem exerce atividades com risco de degradação ambiental, segundo a legislação de AIA, deve ter seguro de responsabilidade civil."],
+["28.º","Responsabilidade objetiva","Quem causar danos ao ambiente deve repará-los ou indemnizar o Estado, mesmo sem culpa. Os tribunais avaliam a gravidade por peritagem ambiental."],
+["29.º","Crimes e contravenções","As infrações criminais e as contravenções ambientais são reguladas em legislação específica."],
+["30.º","Fiscalização ambiental","O Governo cria um sistema de fiscalização para garantir o cumprimento da legislação ambiental."],
+["31.º","Dever de colaboração","Todas as pessoas sujeitas a fiscalização devem colaborar com os agentes fiscalizadores."],
+["32.º","Participação das comunidades","O Governo promove um corpo de agentes de fiscalização comunitários."],
+["33.º","Incentivos","O Governo cria incentivos económicos ou outros para tecnologias, processos e usos de recursos alinhados com o desenvolvimento sustentável."],
+["34.º","Revogação","Revoga a legislação contrária a esta lei."],
+["35.º","Legislação a publicar","A legislação exigida por esta lei devia ser publicada no prazo máximo de um ano após a sua entrada em vigor."],
+["36.º","Dúvidas e omissões","São resolvidas pela Assembleia Nacional."],
+["37.º","Entrada em vigor","A lei entra em vigor na data da publicação (Lei 5/98, de 19 de Junho)."]
+];
+var GLOS=[
+["Anexo","Atividade","Qualquer ação pública ou privada que use ou explore componentes ambientais, aplique tecnologias ou processos, ou execute planos, programas e atos normativos, e que afete ou possa afetar o ambiente."],
+["Anexo","Ambiente","Conjunto dos sistemas físicos, químicos e biológicos, das suas relações e dos fatores económicos, sociais e culturais que atuam sobre os seres vivos e a qualidade de vida humana."],
+["Anexo","Áreas de Proteção Ambiental","Espaços definidos e representativos de biomas ou ecossistemas a preservar, onde não se explora recursos naturais, salvo turismo ecológico, educação ambiental e investigação em algumas delas."],
+["Anexo","Avaliação de Impacto Ambiental","Instrumento preventivo que identifica e analisa antecipadamente, em termos qualitativos e quantitativos, os efeitos benéficos e prejudiciais de uma atividade proposta."],
+["Anexo","Biodiversidade","Variedade dos organismos vivos de todas as origens, incluindo a diversidade dentro de cada espécie, entre espécies e entre ecossistemas."],
+["Anexo","Componentes Ambientais","Elementos cuja interação equilibra o ambiente: ar, água, solo, subsolo, seres vivos e condições socioeconómicas. Também chamados recursos naturais."],
+["Anexo","Degradação ou Dano do Ambiente","Alteração adversa das características do ambiente, como poluição, desertificação, erosão e desflorestamento."],
+["Anexo","Desflorestamento","Destruição ou abate indiscriminado de matas e florestas sem a devida reposição."],
+["Anexo","Desenvolvimento Sustentável","Desenvolvimento que satisfaz as necessidades presentes sem comprometer o equilíbrio do ambiente nem as necessidades das gerações futuras."],
+["Anexo","Desertificação","Degradação do solo, natural ou provocada pela remoção da vegetação ou uso predatório, que o transforma em deserto."],
+["Anexo","Ecossistema","Complexo dinâmico de comunidades de plantas, animais e microrganismos e do seu ambiente não vivo, que funciona como unidade."],
+["Anexo","Erosão","Desprendimento da superfície do solo por ação dos ventos ou das águas, muitas vezes agravado pela remoção da vegetação."],
+["Anexo","Estudo de Impacto Ambiental","Parte da avaliação de impacto que analisa técnica e cientificamente as consequências ambientais de atividades de desenvolvimento."],
+["Anexo","Gestão Ambiental","Maneio e uso racional e sustentável dos componentes ambientais, incluindo reciclagem, proteção e conservação."],
+["Anexo","Impacto Ambiental","Qualquer mudança do ambiente, positiva ou negativa, causada por atividades humanas, sobretudo no ar, na terra, na água, na biodiversidade e na saúde."],
+["Anexo","Legislação Ambiental","Todo o diploma legal que rege a gestão do ambiente."],
+["Anexo","Ordenamento do Território","Organização integrada do espaço biofísico para usar e transformar o território segundo as suas capacidades e vocações, mantendo o equilíbrio biológico e a estabilidade geológica."],
+["Anexo","Padrões de Qualidade Ambiental","Níveis admissíveis de concentração de poluentes fixados por lei para os componentes ambientais, conforme o fim a que se destinam."],
+["Anexo","Património Genético","Qualquer material vegetal, animal, de microrganismos ou outra origem com unidades funcionais de hereditariedade de valor atual ou potencial."],
+["Anexo","Política Ambiental","Articulação de ideias e atitudes dos cidadãos que orienta a sociedade para mais qualidade de vida, sem pôr em risco os ciclos que sustentam a biodiversidade."],
+["Anexo","Poluição","Deposição no ambiente de substâncias ou resíduos, ou emissão de luz, som e outras energias, em quantidade que o afete negativamente."],
+["Anexo","Programa Nacional de Gestão Ambiental","Conjunto de medidas legislativas e executivas do Estado que orientam o país para uma política ambiental baseada no desenvolvimento sustentável."],
+["Anexo","Qualidade do Ambiente","Equilíbrio e sanidade do ambiente, incluindo a adequação dos seus componentes às necessidades humanas e dos outros seres vivos."],
+["Anexo","Qualidade de Vida","Resultado de múltiplos fatores sociais que se traduz em bem-estar físico, mental e social e na afirmação cultural do indivíduo."],
+["Anexo","Resíduos ou Lixos Perigosos","Substâncias ou objetos a eliminar que sejam inflamáveis, explosivos, corrosivos, tóxicos, infecciosos ou radioativos, ou perigosos para a vida, a saúde ou o ambiente."]
+];
+var ARTS=[
+["3.º","Definições","Define as categorias A a D, o EIA, o EAS, o EPDA, os Termos de Referência, a consulta pública e os tipos de licença ambiental."],
+["4.º","Realização de AIA","Projetos agrícolas, florestais, industriais, turísticos ou de infraestruturas com impacte relevante exigem AIA e EIA prévios ao licenciamento."],
+["5.º","Isenções","Ficam isentas de EIA e EAS as ações de emergência após calamidades e as atividades de defesa e segurança nacional. O Estado e as autarquias não pagam taxas."],
+["6.º","Apresentação do EIA","O dono da obra regista a atividade no Sistema Integrado do Ambiente (SIA) e submete o EIA, o resumo não técnico e os documentos da empresa."],
+["7.º","Categorização","A e B exigem EIA, C exige EAS, D fica fora da AIA e E reúne as questões fatais do Anexo V. A Categoria A tem supervisão de revisores independentes."],
+["8.º","Competências","O Ministério do Ambiente gere a AIA e licencia as Categorias A e B. A administração local licencia a C e emite a isenção da D."],
+["9.º","Pré-avaliação","Toda atividade com possível impacte é pré-avaliada: define-se a categoria, o tipo de estudo e, se aplicável, a isenção. A declaração de isenção sai em 24 horas."],
+["10.º","Critérios de avaliação","Contam as pessoas afetadas, os ecossistemas, a extensão da área, a duração e intensidade dos impactes, os efeitos cumulativos e a reversibilidade."],
+["12.º","EPDA","Obrigatório na Categoria A. Verifica se existem questões fatais e define o âmbito e os Termos de Referência do EIA."],
+["13.º","Termos de Referência","Guião do EIA e do EAS: estudos especializados, alternativas, metodologia, consulta pública e equipa responsável."],
+["14.º","Estudo de Impacte Ambiental","Responsabilidade do proponente. Inclui alternativas, impactes e medidas de mitigação, Plano de Gestão Ambiental e relatório da consulta pública."],
+["15.º","Estudo Ambiental Simplificado","Os TdR são apreciados a nível provincial antes do estudo. O relatório é entregue em português e em suporte digital."],
+["16.º","Consultas públicas","Obrigatórias na AIA, com resumo não técnico divulgado. Duram de 5 a 10 dias e os custos são do dono da obra."],
+["17.º","Prazos","O Ministério envia o parecer em 30 dias. Sem resposta nesse prazo, o parecer considera-se favorável."],
+["18.º","Parecer vinculativo","Um parecer negativo do Ministro do Ambiente impede a autorização ou o licenciamento. Cabe recurso nos termos gerais."],
+["24.º","Decisão e licença","Comprovada a viabilidade, a licença é emitida em 8 dias úteis após o pagamento das taxas. Pode haver rejeição total ou parcial."],
+["32.º","Validade da licença","Licença de instalação: 3 anos, renovável. Licença de operação: 5 anos, renovável. Caduca se a atividade não começar em 2 anos."],
+["41.º","Responsabilidade do proponente","Deve contratar consultora ambiental registada, dar informação atualizada e suportar os custos. Responde civil e criminalmente por infrações."],
+["43.º","Multas","De 500.000 Kz a 500.000.000 Kz, conforme a gravidade, a culpa e o dano. Iniciar atividade sem licença é infração."]
+];
+var ACTS=[
+["Escolha uma atividade…","",""],
+["Extração e processamento de minérios","A",""],
+["Produção e derivados de hidrocarbonetos","A",""],
+["Fabrico de pesticidas ou substâncias perigosas","A",""],
+["Estrada principal fora da zona urbana","B",""],
+["Barragem com albufeira de 5 ha ou mais","B",""],
+["Central hidroelétrica, térmica ou fotovoltaica","B",""],
+["Linha de transmissão de 66 kV ou mais","B",""],
+["Aterro sanitário","B",""],
+["Loteamento urbano com mais de 10 ha","B",""],
+["Posto de combustível até 200 m³","C",""],
+["Hotel até 4 pisos em área urbana","C",""],
+["Supermercado até 1000 m²","C",""],
+["Exploração de inertes (areia e burgau)","C",""],
+["Linha elétrica abaixo de 66 kV","C",""],
+["Farmácia","D",""],
+["Agência bancária","D",""],
+["Torre de telecomunicações","D",""],
+["Salão de beleza ou barbearia","D",""],
+["Outra atividade (não listada)","?",""]
+];
+var CAT={
+A:["Categoria A","Impactes potencialmente graves ou irreversíveis.",["Fazer o EPDA e os Termos de Referência (art. 12.º).","Fazer o EIA, com revisão por especialistas independentes.","Consulta pública de 5 a 10 dias.","Licença emitida pelo Ministério do Ambiente."]],
+B:["Categoria B","Impactes significativos em seres vivos ou áreas sensíveis.",["Aprovar os Termos de Referência.","Fazer o EIA com Plano de Gestão Ambiental.","Consulta pública de 5 a 10 dias.","Licença emitida pela entidade central de AIA."]],
+C:["Categoria C","Impactes menores que os da Categoria B.",["Submeter os TdR ao órgão provincial.","Fazer o Estudo Ambiental Simplificado (EAS).","Licença emitida pela administração local."]],
+D:["Categoria D","Impactes negligenciáveis ou mínimos.",["Sem AIA nem licenciamento ambiental.","Pedir a Declaração de Isenção à administração local (24 horas, art. 9.º)."]],
+E:["Categoria E – questões fatais","Categoria expressamente prevista no artigo 7.º, alínea e), e no Anexo V do Decreto Presidencial n.º 117/20. A pré-avaliação pode conduzir à reprovação do local quando se confirme uma questão fatal.",["Não tratar o resultado como uma licença ou decisão automática da aplicação.","Registar a questão fatal, a evidência e a localização exacta.","Submeter o caso à autoridade competente; avaliar alternativa de localização quando admissível."]],
+"?":["Sem categoria definida","A atividade não consta da lista deste protótipo.",["Pedir a pré-avaliação ao Ministério do Ambiente (art. 9.º).","Todos os projetos não listados nas Categorias C e D seguem licenciamento central (Anexo II)."]]
+};
+var COL={A:"var(--A)",B:"var(--B)",C:"var(--C)",D:"var(--D)",E:"var(--E)","?":"var(--mut)"};
+function norm(s){return s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"")}
+var list=document.getElementById("list"),cnt=document.getElementById("cnt"),q=document.getElementById("q");
+function render(){
+  var ALL=LEI.map(function(a){return a.concat("Lei 5/98")}).concat(ARTS.map(function(a){return a.concat("Decreto 117/20")})).concat(GLOS.map(function(a){return a.concat("Glossário")}));var sv=document.getElementById("src").value;var t=norm(q.value.trim()),out=ALL.filter(function(a){return (sv==="all"||a[3]===sv)&&(!t||norm(a[0]+" "+a[1]+" "+a[2]).indexOf(t)>-1)});
+  list.innerHTML="";
+  out.forEach(function(a){
+    var d=document.createElement("div");d.className="art";
+    var b=document.createElement("b");b.textContent=a[3]==="Glossário"?"Glossário da Lei 5/98: "+a[1]:a[3]+", art. "+a[0]+" – "+a[1];
+    var p=document.createElement("p");p.textContent=a[2];
+    d.appendChild(b);d.appendChild(p);list.appendChild(d);
+  });
+  cnt.textContent=out.length?out.length+" artigo(s)":"Nenhum artigo encontrado. Tente outra palavra, como “licença” ou “prazo”.";
+}
+q.addEventListener("input",render);document.getElementById("src").addEventListener("change",render);render();
+var act=document.getElementById("act"),fatal=document.getElementById("fatal"),res=document.getElementById("res");
+ACTS.forEach(function(a,i){var o=document.createElement("option");o.value=i;o.textContent=a[0];act.appendChild(o)});
+function classify(){
+  var k=fatal.checked?"E":ACTS[act.value][1];
+  if(!k){res.innerHTML="";return}
+  var c=CAT[k];
+  res.innerHTML="";
+  var box=document.createElement("div");box.className="res";box.style.setProperty("--c",COL[k]);
+  var big=document.createElement("span");big.className="big";big.textContent=k==="?"?"?":k;
+  var h=document.createElement("h2");h.textContent=c[0];
+  var p=document.createElement("p");p.style.margin="4px 0 0";p.textContent=c[1];
+  var ul=document.createElement("ul");
+  c[2].forEach(function(s){var li=document.createElement("li");li.textContent=s;ul.appendChild(li)});
+  box.appendChild(big);box.appendChild(h);box.appendChild(p);box.appendChild(ul);res.appendChild(box);
+}
+act.addEventListener("change",classify);fatal.addEventListener("change",classify);
+
+var STUDIES={
+epda:{title:'EPDA – Estudo de Pré-Viabilidade Ambiental e Definição do Âmbito',legal:'Decreto Presidencial n.º 117/20, artigo 12.º; artigo 7.º, alínea a). Obrigatório para actividades da Categoria A.',purpose:'Verificar a possível existência de questões fatais e, não existindo impedimento fatal, definir o âmbito do EIA e os respectivos TdR.',items:['Resumo não técnico com questões, conclusões e propostas.','Identificação e endereço do proponente e da equipa multidisciplinar.','Limites da área de influência indirecta e padrões de uso da terra nas áreas directa e indirecta.','Descrição do projecto, acções e alternativas nas fases de planificação, construção, exploração e desactivação, quando aplicável.','Descrição biofísica e socioeconómica do local.','Identificação e avaliação das questões fatais.','Indicação dos potenciais impactes ambientais.','Identificação dos aspectos que exigem investigação detalhada no EIA.','Submissão ao Departamento Ministerial responsável pelo Ambiente, via SIA, acompanhado dos TdR do EIA.'],output:'Relatório de EPDA acompanhado dos TdR do EIA. O EPDA não é uma autorização para iniciar obras.'},
+tdr:{title:'TdR – Termos de Referência',legal:'Decreto Presidencial n.º 117/20, artigo 13.º; para EAS, considerar também o artigo 15.º, n.º 2.',purpose:'Definir o que será estudado, porquê, onde, com que métodos, por que equipa e com que produtos e prazos.',items:['Identificação do proponente e do projecto.','Descrição dos estudos especializados necessários, incluindo os identificados no EPDA para Categoria A.','Alternativas viáveis a investigar, incluindo localização, tecnologia e opção de não execução quando pertinente.','Metodologia para identificar e avaliar impactes nas fases de construção, operação e desactivação.','Área de influência, componentes ambientais e sociais e métodos de recolha de dados.','Plano de consulta pública e envolvimento das partes interessadas.','Identificação da equipa responsável e competências técnicas.','Informação adicional, entregáveis, cronograma e requisitos de qualidade.','Submissão à autoridade competente para apreciação/aprovação antes do estudo, conforme o procedimento aplicável.'],output:'TdR aprovados/apreciados conforme a categoria e procedimento. O artigo 13.º define o conteúdo mínimo.'},
+eia:{title:'EIA – Estudo de Impacte Ambiental',legal:'Decreto Presidencial n.º 117/20, artigos 4.º, 6.º, 7.º, 14.º e 16.º.',purpose:'Identificar, prever e avaliar os impactes prováveis do projecto, comparar alternativas e definir medidas para evitar, minimizar, restaurar e, quando necessário, compensar impactes.',items:['Descrição do projecto e das actividades por fase.','Enquadramento legal e compatibilidade com instrumentos de ordenamento do território.','Alternativas tecnológicas e de localização, comparadas com a opção de não execução.','Delimitação cartográfica das áreas de influência e situação ambiental de referência.','Caracterização biofísica: clima, ar, ruído, geologia, solos, água, flora, fauna e ecossistemas, conforme relevância.','Caracterização socioeconómica: população, saúde, usos do solo, património cultural, meios de subsistência e grupos vulneráveis, conforme relevância.','Identificação e avaliação de impactes directos, indirectos, cumulativos, temporários, permanentes, positivos e negativos.','Medidas de mitigação segundo a hierarquia: evitar, minimizar, restaurar e compensar quando aplicável.','Plano de Gestão Ambiental com monitorização, educação ambiental e contingência de acidentes.','Identificação da equipa multidisciplinar e relatório da consulta pública.'],output:'Relatório EIA, acompanhado do Resumo Não Técnico, PGA e relatório de consulta pública, submetido conforme o artigo 6.º e os TdR aprovados.'},
+rnt:{title:'RNT – Resumo Não Técnico',legal:'Decreto Presidencial n.º 117/20, artigos 6.º, 12.º, 14.º e 16.º.',purpose:'Comunicar, em linguagem clara e acessível, os aspectos essenciais do projecto e os resultados ambientais e sociais para apoiar a participação informada.',items:['Identificação do projecto, proponente e localização com mapa legível.','Objectivo e principais características do projecto.','Alternativas estudadas e justificação da alternativa preferida.','Descrição simples do ambiente existente e das comunidades potencialmente afectadas.','Principais impactes positivos e negativos por fase.','Medidas de prevenção, mitigação, recuperação e compensação.','Resumo do programa de monitorização e resposta a emergências.','Principais conclusões sobre viabilidade e compromissos ambientais.','Indicação de onde consultar o estudo completo e como apresentar comentários.'],output:'Documento autónomo, conciso, sem jargão desnecessário, coerente com o EIA e adequado à divulgação pública.'},
+pga:{title:'PGA – Plano de Gestão Ambiental',legal:'Decreto Presidencial n.º 117/20, artigo 14.º, n.º 2, alínea j).',purpose:'Transformar as medidas do EIA em acções executáveis, com responsáveis, recursos, prazos, indicadores e evidências.',items:['Matriz de aspectos, impactes, medidas e requisitos legais.','Programa de gestão de resíduos e materiais perigosos.','Programa de controlo de poeiras, emissões, ruído e vibrações.','Gestão de água, efluentes, drenagem e prevenção de contaminação.','Protecção do solo, biodiversidade, habitats e património cultural.','Saúde, segurança e gestão de riscos ambientais em articulação com HSE.','Gestão social, comunicação, reclamações e relacionamento comunitário.','Plano de emergência e contingência para derrames, incêndios e outros acidentes.','Programa de educação e sensibilização ambiental.','Plano de monitorização com parâmetros, locais, frequência, métodos e limites de referência.','Responsabilidades, orçamento, cronograma, registos e reporte.','Gestão de não conformidades, acções correctivas e melhoria contínua.'],output:'Matriz operacional do PGA e programas específicos, integrados no sistema de gestão do projecto.'},
+lic:{title:'Licenciamento, monitorização e desactivação',legal:'Decreto Presidencial n.º 117/20, artigos 20.º a 32.º e demais disposições aplicáveis.',purpose:'Assegurar que a actividade só avança nas fases legalmente autorizadas e que as condições da licença são cumpridas durante todo o ciclo de vida.',items:['Confirmar a pré-avaliação, categoria e estudo exigido pela autoridade competente.','Registar a actividade no Sistema Integrado do Ambiente (SIA).','Reunir EIA/EAS, RNT, PGA, pareceres sectoriais e documentos do proponente exigidos.','Obter a licença ambiental de instalação antes da implantação quando exigível.','Implementar medidas, condicionantes e programas de monitorização.','Obter a licença ambiental de operação antes do início da operação, quando exigível.','Submeter relatórios de monitorização nos prazos e formatos determinados na licença.','Registar incidentes, reclamações, não conformidades e acções correctivas.','Preparar plano de encerramento, recuperação e gestão de passivos.','Requerer licença de desactivação quando aplicável e comprovar o cumprimento das condições.'],output:'Dossier de licenciamento, registos de monitorização, relatórios periódicos e evidências de cumprimento das condicionantes.'},
+intl:{title:'Referenciais e compromissos internacionais',legal:'A aplicabilidade depende da ratificação por Angola, do âmbito do projecto, dos financiadores e dos compromissos contratuais. Normas voluntárias não substituem a legislação nacional.',purpose:'Usar boas práticas internacionais como complemento técnico e contratual, sem confundir recomendações, normas voluntárias e obrigações jurídicas.',items:['Convenção sobre a Diversidade Biológica (CDB): conservação, uso sustentável e repartição de benefícios.','Convenção de Ramsar: conservação e uso racional de zonas húmidas, quando aplicável.','CITES: comércio internacional de espécies da fauna e flora ameaçadas, quando aplicável.','Convenção-Quadro das Nações Unidas sobre Alterações Climáticas e Acordo de Paris: contexto de mitigação e adaptação climática.','Convenções da OIT relevantes para trabalho, saúde e segurança, conforme ratificação e matéria.','Normas de Desempenho da IFC: referência frequente em projectos financiados, especialmente PS1 a PS8.','Quadro Ambiental e Social do Banco Mundial: aplicável aos projectos financiados pelo Banco Mundial, nos termos do financiamento.','ISO 14001: sistema de gestão ambiental voluntário/certificável; não é licença ambiental.','Princípios do Equador: aplicáveis às instituições financeiras e operações abrangidas pelo compromisso.'],output:'Matriz de aplicabilidade que identifica instrumento, estatuto jurídico, requisito, fase do projecto, evidência e responsável.'}
+};
+function renderStudy(){var k=document.getElementById('studySelect').value,d=STUDIES[k],el=document.getElementById('studyContent');el.innerHTML='';var h=document.createElement('h2');h.textContent=d.title;el.appendChild(h);var tag=document.createElement('span');tag.className='tag';tag.textContent=d.legal;el.appendChild(tag);var p=document.createElement('p');p.textContent=d.purpose;el.appendChild(p);var h3=document.createElement('h3');h3.textContent='Conteúdo e verificações mínimas';el.appendChild(h3);var ul=document.createElement('ul');d.items.forEach(function(x){var li=document.createElement('li');li.textContent=x;ul.appendChild(li)});el.appendChild(ul);var note=document.createElement('div');note.className='module-note';var b=document.createElement('b');b.textContent='Produto/documento esperado: ';note.appendChild(b);note.appendChild(document.createTextNode(d.output));el.appendChild(note);}
+document.getElementById('studySelect').addEventListener('change',renderStudy);renderStudy();
+var AUDIT={
+legal:[['Existe licença ambiental válida e adequada à fase actual?','Licença, validade, titular, localização e actividade autorizada.'],['As condicionantes da licença estão identificadas e acompanhadas?','Matriz de obrigações, evidências e responsáveis.'],['Os relatórios obrigatórios foram submetidos nos prazos?','Protocolos de submissão e comprovativos.']],
+waste:[['Os resíduos estão identificados e classificados?','Inventário, classificação e estimativas de produção.'],['Há segregação, acondicionamento e armazenamento adequados?','Inspecção de contentores, áreas, etiquetas e compatibilidade.'],['O transporte e destino final são rastreáveis?','Guias, contratos, licenças e comprovativos de destino.'],['Resíduos perigosos têm controlo específico?','Fichas de segurança, contenção, sinalização e registos.']],
+water:[['As captações e utilizações de água estão autorizadas quando exigível?','Títulos, licenças, volumes e contadores.'],['Efluentes são tratados antes da descarga/reutilização?','Resultados laboratoriais, operação da ETAR e pontos de descarga.'],['Há monitorização de qualidade e consumo?','Plano, resultados, calibração e tendências.']],
+air:[['Fontes de emissão estão inventariadas?','Inventário de fontes fixas, móveis e difusas.'],['Existem medidas para poeiras e emissões?','Registos de manutenção, rega, filtros e observação no terreno.'],['As medições são representativas e rastreáveis?','Relatórios, métodos, calibração e laboratório.']],
+soil:[['Existem áreas de armazenamento de combustíveis e químicos com contenção?','Inspecção de bacias, pavimento, cobertura e drenagem.'],['Há kits e procedimentos para resposta a derrames?','Inspecção, validade, treino e registo de incidentes.'],['Áreas contaminadas são identificadas e geridas?','Histórico, investigação, amostras e plano de remediação.']],
+biodiversity:[['A área do projecto foi verificada quanto a habitats e espécies sensíveis?','Levantamentos, mapas, autorizações e consulta a dados oficiais.'],['A supressão vegetal e movimentação de terras são controladas?','Autorizações, delimitação e registos de acompanhamento.'],['Há medidas para fauna, flora e recuperação?','Plano de resgate, reabilitação e monitorização.']],
+social:[['As partes interessadas e comunidades afectadas estão identificadas?','Mapa de partes interessadas e registos de consulta.'],['Existe mecanismo acessível de reclamações?','Livro/canal, prazos, tratamento e fecho.'],['Impactes sobre meios de subsistência e património foram tratados?','Estudos, medidas, acordos e evidências de execução.']],
+emergency:[['Os cenários de emergência ambiental estão identificados?','Análise de risco e plano de emergência.'],['Equipamentos de resposta estão disponíveis e inspeccionados?','Inventário, checklists, validade e localização.'],['São realizados exercícios e analisadas lições aprendidas?','Relatórios de simulacros e acções de melhoria.']],
+monitoring:[['O plano de monitorização cobre os parâmetros e frequências exigidos?','PGA, licença, plano de amostragem e calendário.'],['Os equipamentos e métodos são adequados?','Calibração, métodos, cadeia de custódia e laboratório.'],['Resultados fora dos critérios geram acções?','Alertas, investigação, comunicação e acções correctivas.']],
+contractors:[['Empreiteiros conhecem os requisitos ambientais do projecto?','Integração, formação, cláusulas e avaliações.'],['As actividades de risco são inspeccionadas?','Inspecções, permissões e observações de campo.'],['Não conformidades de contratados são encerradas?','Registo, responsável, prazo e verificação de eficácia.']]
+};
+function renderAudit(){var t=document.getElementById('auditType').value,a=document.getElementById('auditArea').value,el=document.getElementById('auditChecklist');el.innerHTML='';var title=document.createElement('b');title.textContent='Lista de verificação – '+({internal:'Auditoria interna',external:'Auditoria externa',compliance:'Auditoria de conformidade legal',performance:'Auditoria de desempenho'}[t]);el.appendChild(title);var keys=a==='all'?Object.keys(AUDIT):[a];keys.forEach(function(k){var h=document.createElement('h3');h.textContent=({legal:'Legal e licenças',waste:'Resíduos e químicos',water:'Água e efluentes',air:'Emissões e poeiras',soil:'Solo e derrames',biodiversity:'Biodiversidade',social:'Aspectos sociais',emergency:'Emergências',monitoring:'Monitorização',contractors:'Empreiteiros'}[k]);el.appendChild(h);AUDIT[k].forEach(function(item,i){var lab=document.createElement('label'),cb=document.createElement('input'),span=document.createElement('span');cb.type='checkbox';span.textContent=item[0]+' Evidência a procurar: '+item[1];lab.appendChild(cb);lab.appendChild(span);el.appendChild(lab)})});}
+document.getElementById('auditType').addEventListener('change',renderAudit);document.getElementById('auditArea').addEventListener('change',renderAudit);renderAudit();
+
+var IMPACTS=[
+['Solo e geologia','Compactação, erosão, escavações, alteração da topografia e contaminação por combustíveis/óleos.'],
+['Água e drenagem','Consumo de água, alteração do escoamento, assoreamento e contaminação de águas superficiais/subterrâneas.'],
+['Biodiversidade','Remoção de vegetação, fragmentação de habitats, perturbação ou mortalidade de fauna.'],
+['Ar e poeiras','Poeiras de movimentação de terras, emissões de máquinas e veículos.'],
+['Ruído e vibrações','Ruído de equipamentos, tráfego, obras e actividades de manutenção.'],
+['Resíduos','Produção de resíduos comuns, construção, óleos usados, baterias, painéis danificados e embalagens.'],
+['Paisagem e uso do solo','Alteração visual, ocupação de terrenos, restrição de acessos e conflito com usos existentes.'],
+['Património cultural','Risco de afectação de sítios arqueológicos, cemitérios, locais sagrados ou património cultural.'],
+['Comunidades e economia','Emprego, aquisição de terras, meios de subsistência, circulação, segurança comunitária e influxo de trabalhadores.'],
+['Saúde e segurança','Acidentes rodoviários, trabalho em altura, electricidade, incêndio e exposição ocupacional.'],
+['Clima e energia','Emissões de gases com efeito de estufa no ciclo de vida, resiliência a eventos climáticos e contribuição energética.'],
+['Desactivação','Resíduos de equipamentos, recuperação de áreas, remoção de infraestruturas e passivos ambientais.']
+];
+var impactBox=document.getElementById('impactOptions');IMPACTS.forEach(function(x,i){var lab=document.createElement('label'),cb=document.createElement('input'),sp=document.createElement('span');cb.type='checkbox';cb.value=x[0];sp.textContent=x[0]+': '+x[1];lab.appendChild(cb);lab.appendChild(sp);impactBox.appendChild(lab)});
+var pName=document.getElementById('pName'),pActivity=document.getElementById('pActivity'),pLocation=document.getElementById('pLocation'),pPhase=document.getElementById('pPhase'),pCategory=document.getElementById('pCategory'),pDescription=document.getElementById('pDescription'),pEvidence=document.getElementById('pEvidence'),pMeasures=document.getElementById('pMeasures'),projectStatus=document.getElementById('projectStatus');
+function projectData(){return {name:pName.value,activity:pActivity.value,location:pLocation.value,phase:pPhase.value,category:pCategory.value,description:pDescription.value,impacts:Array.from(impactBox.querySelectorAll('input:checked')).map(x=>x.value),evidence:pEvidence.value,measures:pMeasures.value,date:new Date().toLocaleDateString('pt-PT')}}
+function fillProject(d){if(!d)return;pName.value=d.name||'';pActivity.value=d.activity||'';pLocation.value=d.location||'';pPhase.value=d.phase||'Construção';pCategory.value=d.category||'Por determinar pela pré-avaliação';pDescription.value=d.description||'';pEvidence.value=d.evidence||'';pMeasures.value=d.measures||'';impactBox.querySelectorAll('input').forEach(x=>x.checked=(d.impacts||[]).includes(x.value));}
+document.getElementById('loadSolar').addEventListener('click',function(){
+ fillProject({name:'Central Fotovoltaica de Catete — exemplo didáctico',activity:'Construção e futura operação de central fotovoltaica',location:'Catete, Icolo e Bengo, Angola — localização exacta por confirmar',phase:'Construção',category:'Por determinar pela pré-avaliação',description:'Exercício: preparação do terreno, estruturas e painéis, acessos internos, estaleiro, cabos e equipamentos eléctricos. Capacidade, área, traçado e receptores sensíveis por confirmar.',impacts:['Solo e geologia','Água e drenagem','Biodiversidade','Ar e poeiras','Ruído e vibrações','Resíduos','Paisagem e uso do solo','Comunidades e economia','Saúde e segurança','Desactivação'],evidence:'Confirmar polígono e titularidade do terreno; levantamento topográfico e drenagem; caracterização de solos; inventário de vegetação/fauna; usos comunitários; localização de linhas de água e receptores sensíveis; dimensionamento e traçado de linhas eléctricas; consulta às partes interessadas.',measures:'Delimitar área de intervenção; evitar zonas sensíveis; implementar drenagem e controlo de sedimentos; humedecer vias quando necessário; controlar velocidade; segregar resíduos; armazenar combustíveis com contenção; formar empreiteiros; recuperar áreas temporárias.'});
+ projectStatus.textContent='Exemplo de Catete carregado. Dados hipotéticos: substitua-os por informação verificada.';
+});
+document.getElementById('loadHydro').addEventListener('click',function(){
+ fillProject({name:'Infraestrutura hidroeléctrica de Laúca — exemplo didáctico',activity:'Acompanhamento ambiental e social de actividades associadas a infraestrutura hidroeléctrica',location:'Laúca, Angola — delimitação exacta da área de intervenção por confirmar',phase:'Operação',category:'Por determinar pela pré-avaliação',description:'Exercício: distinguir instalações em operação, manutenção, acessos, áreas auxiliares, pontos de descarga e comunidades/receptores potencialmente influenciados. Confirmar âmbito contratual e fase efectiva.',impacts:['Solo e geologia','Água e drenagem','Biodiversidade','Ar e poeiras','Ruído e vibrações','Resíduos','Comunidades e economia','Saúde e segurança','Desactivação'],evidence:'Confirmar actividades e limites do âmbito; inventário de pontos de descarga; caracterização de água de referência e receptores a jusante; mapa de drenagem; registos de resíduos; áreas de manutenção e armazenamento; habitats; partes interessadas, reclamações e riscos de segurança comunitária.',measures:'Inspeccionar drenagem e sistemas de tratamento; prevenir derrames; manter contenção secundária; segregar e encaminhar resíduos com comprovativos; controlar sedimentos; proteger habitats; manter mecanismo de reclamações; comunicar riscos; investigar incidentes e acompanhar acções correctivas.'});
+ projectStatus.textContent='Exemplo de Laúca carregado. Confirme a fase e o âmbito real antes de utilizar a ficha.';
+});
+
+document.getElementById('saveProject').addEventListener('click',function(){try{localStorage.setItem('ambienteAngolaProjectDraft',JSON.stringify(projectData()));projectStatus.textContent='Rascunho guardado neste dispositivo. Não foi enviado para qualquer servidor.'}catch(e){projectStatus.textContent='Não foi possível guardar neste dispositivo. Copie ou imprima a ficha.'}});
+document.getElementById('clearProject').addEventListener('click',function(){if(confirm('Limpar todos os campos desta ficha?')){fillProject({});try{localStorage.removeItem('ambienteAngolaProjectDraft')}catch(e){}projectStatus.textContent='Ficha limpa.'}});
+try{var saved=localStorage.getItem('ambienteAngolaProjectDraft');if(saved)fillProject(JSON.parse(saved))}catch(e){}
+document.getElementById('printProject').addEventListener('click',function(){var d=projectData(),w=window.open('','_blank');if(!w){projectStatus.textContent='Permita a abertura da janela de impressão no navegador.';return;}var esc=function(v){return String(v||'').replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})};w.document.write('<!doctype html><html lang="pt"><meta charset="utf-8"><title>Ficha ambiental - '+esc(d.name)+'</title><style>body{font:14px Arial;margin:32px;color:#182b25}h1,h2{color:#1f5c4d}h1{font-size:22px}li{margin:6px 0}.field{margin:12px 0}b{display:block;margin-bottom:4px}.note{border:1px solid #aaa;padding:10px;margin-top:20px}</style><h1>AMBIENTE ANGOLA — FICHA PRELIMINAR DE ENQUADRAMENTO AMBIENTAL</h1><p>Data: '+esc(d.date)+'</p><h2>Identificação</h2><div class="field"><b>Projecto</b>'+esc(d.name)+'</div><div class="field"><b>Actividade</b>'+esc(d.activity)+'</div><div class="field"><b>Localização</b>'+esc(d.location)+'</div><div class="field"><b>Fase</b>'+esc(d.phase)+'</div><div class="field"><b>Categoria indicada</b>'+esc(d.category)+'</div><div class="field"><b>Descrição</b>'+esc(d.description)+'</div><h2>Aspectos e impactes a investigar</h2><ul>'+d.impacts.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul><h2>Informação em falta / estudos</h2><p>'+esc(d.evidence).replace(/\n/g,'<br>')+'</p><h2>Medidas preliminares</h2><p>'+esc(d.measures).replace(/\n/g,'<br>')+'</p><div class="note"><b>Limitação:</b> documento de trabalho preliminar. Não constitui EPDA, EIA, licença ambiental, decisão de categorização ou parecer da autoridade competente. A categoria e os estudos exigidos devem ser confirmados no procedimento legal aplicável.</div></html>');w.document.close();w.focus();w.print();});
+
+document.querySelectorAll("nav button").forEach(function(b){
+  b.addEventListener("click",function(){
+    document.querySelectorAll("nav button").forEach(function(x){x.setAttribute("aria-selected",x===b)});
+    ["search","class","studies","audit","tools","about"].forEach(function(n){document.getElementById("s-"+n).hidden=(n!==b.dataset.t)});
+    window.scrollTo(0,0);
+  });
+});
+</script>
+<script>
+if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})}
+</script>
+</body>
+</html>
